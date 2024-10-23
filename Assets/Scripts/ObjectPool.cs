@@ -9,22 +9,22 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        // ¹Ì¸® poolSize¸¸Å­ °ÔÀÓ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+        // ë¯¸ë¦¬ poolSizeë§Œí¼ ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
         CreatePool(poolSize);
     }
     void CreatePool(int size)
     {
         for (int i = 0; i < size; i++)
         {
-            GameObject go = Instantiate(prefab);    // ÇÁ¸®ÆÕÀ¸·Î ÀÎ½ºÅÏ½º »ı¼º
-            go.SetActive(false);    // Ç®¿¡ ³Ö±â Àü ºñÈ°¼ºÈ­
-            pool.Add(go);   // Ç®¿¡ Ãß°¡
+            GameObject go = Instantiate(prefab);    // í”„ë¦¬íŒ¹ìœ¼ë¡œ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
+            go.SetActive(false);    // í’€ì— ë„£ê¸° ì „ ë¹„í™œì„±í™”
+            pool.Add(go);   // í’€ì— ì¶”ê°€
         }
     }
 
     public GameObject Get()
     {
-        // ²¨Á®ÀÖ´Â °ÔÀÓ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ activeÇÑ »óÅÂ·Î º¯°æÇÏ°í return ÇÑ´Ù.
+        // êº¼ì ¸ìˆëŠ” ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ activeí•œ ìƒíƒœë¡œ ë³€ê²½í•˜ê³  return í•œë‹¤.
         foreach (GameObject go in pool)
         {
             if (!go.activeSelf)
@@ -33,10 +33,9 @@ public class ObjectPool : MonoBehaviour
                 return go;
             }
         }
-        int currentPoolSize = pool.Count;   // ÇöÀç±îÁöÀÇ Ç® »çÀÌÁî ÀúÀå
-        CreatePool(poolSize);   // Ç® È®Àå
-
-        // È®ÀåµÈ Ç®ÀÇ ºñÈ°¼º ¿ÀºêÁ§Æ® Áß Ã¹¹øÂ° °¡Á®¿Í È°¼ºÈ­ ÈÄ ¸®ÅÏ
+        int currentPoolSize = pool.Count;   // í˜„ì¬ê¹Œì§€ì˜ í’€ ì‚¬ì´ì¦ˆ ì €ì¥
+        CreatePool(poolSize);   // í’€ í™•ì¥
+        // í™•ì¥ëœ í’€ì˜ ë¹„í™œì„± ì˜¤ë¸Œì íŠ¸ ì¤‘ ì²«ë²ˆì§¸ ê°€ì ¸ì™€ í™œì„±í™” í›„ ë¦¬í„´
         GameObject obj = pool[currentPoolSize];
         obj.SetActive(true);
         return obj;
@@ -44,7 +43,7 @@ public class ObjectPool : MonoBehaviour
 
     public void Release(GameObject obj)
     {
-        // °ÔÀÓ¿ÀºêÁ§Æ®¸¦ deactiveÇÑ´Ù.
+        // ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ deactiveí•œë‹¤.
         obj.SetActive(false);
     }
 }
