@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    // [±¸Çö»çÇ× 1] Á¤Àû ÇÊµå Á¤ÀÇ
+    // [êµ¬í˜„ì‚¬í•­ 1] ì •ì  í•„ë“œ ì •ì˜
     private static QuestManager instance;
 
-    // [±¸Çö»çÇ× 2] Á¤Àû ÇÁ·ÎÆÛÆ¼ Á¤ÀÇ
+    // [êµ¬í˜„ì‚¬í•­ 2] ì •ì  í”„ë¡œí¼í‹° ì •ì˜
     public static QuestManager Instance
     {
         get
         {
-            // instance°¡ nullÀÎÁö È®ÀÎ
+            // instanceê°€ nullì¸ì§€ í™•ì¸
             if (instance != null)
             {
-                // instance Á¸ÀçÇÏ¸é ¹Ù·Î ¸®ÅÏ
+                // instance ì¡´ì¬í•˜ë©´ ë°”ë¡œ ë¦¬í„´
                 return instance;
             }
-            // QuestManager Å¸ÀÔ °¡Áø ÄÄÆ÷³ÍÆ® Ã£¾Æ ´ëÀÔ
+            // QuestManager íƒ€ì… ê°€ì§„ ì»´í¬ë„ŒíŠ¸ ì°¾ì•„ ëŒ€ì…
             instance = FindObjectOfType<QuestManager>();
-            // instance°¡ nullÀÌ¸é
-            // (ÇöÀç ¾À¿¡ QuestManager°¡ ¾øÀ¸¸é)
+            // instanceê°€ nullì´ë©´
+            // (í˜„ì¬ ì”¬ì— QuestManagerê°€ ì—†ìœ¼ë©´)
             if (instance == null)
             {
-                // »õ·Î¿î °ÔÀÓ¿ÀºêÁ§Æ® »ı¼º
+                // ìƒˆë¡œìš´ ê²Œì„ì˜¤ë¸Œì íŠ¸ ìƒì„±
                 GameObject go = new GameObject("QuestManager");
                 instance = go.AddComponent<QuestManager>();
             }
@@ -30,17 +30,17 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    // [±¸Çö»çÇ× 3] ÀÎ½ºÅÏ½º °Ë»ç ·ÎÁ÷
+    // [êµ¬í˜„ì‚¬í•­ 3] ì¸ìŠ¤í„´ìŠ¤ ê²€ì‚¬ ë¡œì§
     private void Awake()
     {
-        // ÀÎ½ºÅÏ½º°¡ nullÀÌ ¾Æ´Ï°í
-        // (ÀÌ¹Ì)Á¸ÀçÇÏ´Â ÀÎ½ºÅÏ½º°¡ ÇöÀç »ı¼ºµÈ ÀÎ½ºÅÏ½º°¡ ¾Æ´Ñ °æ¿ì
+        // ì¸ìŠ¤í„´ìŠ¤ê°€ nullì´ ì•„ë‹ˆê³ 
+        // (ì´ë¯¸)ì¡´ì¬í•˜ëŠ” ì¸ìŠ¤í„´ìŠ¤ê°€ í˜„ì¬ ìƒì„±ëœ ì¸ìŠ¤í„´ìŠ¤ê°€ ì•„ë‹Œ ê²½ìš°
         if (instance != null && instance != this)
         {
-            Destroy(gameObject);  // »ı¼ºµÈ ÀÎ½ºÅÏ½º ÆÄ±«
+            Destroy(gameObject);  // ìƒì„±ëœ ì¸ìŠ¤í„´ìŠ¤ íŒŒê´´
             return;
         }
-        // ÀÎ½ºÅÏ½º°¡ nullÀÌ¸é ÇöÀç »ı¼ºµÈ °ÍÀ¸·Î À¯Áö
+        // ì¸ìŠ¤í„´ìŠ¤ê°€ nullì´ë©´ í˜„ì¬ ìƒì„±ëœ ê²ƒìœ¼ë¡œ ìœ ì§€
         instance = this;
     }
 }
