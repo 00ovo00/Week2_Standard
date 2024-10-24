@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Reflection;
 
 public class ObjectPool : MonoBehaviour
 {
     public GameObject prefab;
     private List<GameObject> pool = new List<GameObject>();
     public int poolSize = 300;
-
+    public int maxPoolSize = 1000;  // 풀 최대 확장 크기
+    
     void Start()
     {
         // 미리 poolSize만큼 게임오브젝트를 생성한다.
@@ -17,6 +20,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             GameObject go = Instantiate(prefab);    // 프리팹으로 인스턴스 생성
+            go.transform.SetParent(transform);
             go.SetActive(false);    // 풀에 넣기 전 비활성화
             pool.Add(go);   // 풀에 추가
         }
@@ -33,12 +37,23 @@ public class ObjectPool : MonoBehaviour
                 return go;
             }
         }
-        int currentPoolSize = pool.Count;   // 현재까지의 풀 사이즈 저장
-        CreatePool(poolSize);   // 풀 확장
-        // 확장된 풀의 비활성 오브젝트 중 첫번째 가져와 활성화 후 리턴
-        GameObject obj = pool[currentPoolSize];
-        obj.SetActive(true);
-        return obj;
+
+        int currentPoolSize = pool.Count;
+        Debug.Log(currentPoolSize);
+        
+        // 최대 풀 크기에 도달하면 확장 x, null 반환
+        if (currentPoolSize >= maxPoolSize)
+        {
+            Debug.Log($"[{this.GetType().Name}] : {MethodBase.GetCurrentMethod().Name}");
+            Debug.Log("Exceeded max pool size");
+            return null;
+        }
+
+        // 풀 확장 가능하면 기본 지정 풀 사이즈만큼 확장
+        int newPoolSize = Mathf.Min(poolSize, maxPoolSize - currentPoolSize);
+        CreatePool(newPoolSize);
+        
+        return Get();
     }
 
     public void Release(GameObject obj)
