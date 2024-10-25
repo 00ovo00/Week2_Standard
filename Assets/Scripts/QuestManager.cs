@@ -1,9 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
     // [구현사항 1] 정적 필드 정의
     private static QuestManager instance;
+    public List<QuestDataSO> Quests;
 
     // [구현사항 2] 정적 프로퍼티 정의
     public static QuestManager Instance
@@ -42,5 +46,31 @@ public class QuestManager : MonoBehaviour
         }
         // 인스턴스가 null이면 현재 생성된 것으로 유지
         instance = this;
+    }
+
+    private void Start()
+    {
+        QuestSetting();
+    }
+
+    void QuestSetting()
+    {
+        for (int i = 0; i < Quests.Count; i++)
+        {
+            QuestDataSO quest = Quests[i];
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Quest {i + 1} - {quest.QuestName} (최소 레벨 {quest.QuestRequiredLevel})");
+
+            // 퀘스트 타입마다 다른 출력
+            if (quest is MonsterQuestDataSO monsterQuest)
+            {
+                sb.Append($"\n {monsterQuest.MonsterKillCount} 마리 소탕");
+            }
+            else if(quest is EncounterQuestDataSO encounterQuest)
+            {
+                sb.Append($"\n {encounterQuest.NPCName} 님과 대화하기");
+            }
+            Debug.Log(sb);
+        }
     }
 }
