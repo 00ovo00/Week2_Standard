@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 860961749803935505}
   - component: {fileID: 3708622919919124170}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: PolygonColliderCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

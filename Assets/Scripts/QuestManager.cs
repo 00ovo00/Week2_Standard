@@ -60,15 +60,19 @@ public class QuestManager : MonoBehaviour
             QuestDataSO quest = Quests[i];
             StringBuilder sb = new StringBuilder();
             sb.Append($"Quest {i + 1} - {quest.QuestName} (최소 레벨 {quest.QuestRequiredLevel})");
-
+            
             // 퀘스트 타입마다 다른 출력
-            if (quest is MonsterQuestDataSO monsterQuest)
+            switch (quest)
             {
-                sb.Append($"\n {monsterQuest.MonsterKillCount} 마리 소탕");
-            }
-            else if(quest is EncounterQuestDataSO encounterQuest)
-            {
-                sb.Append($"\n {encounterQuest.NPCName} 님과 대화하기");
+                case MonsterQuestDataSO monsterQuest: 
+                    sb.Append($"\n {monsterQuest.MonsterKillCount} 마리 소탕");
+                    break;
+                case EncounterQuestDataSO encounterQuest:
+                   sb.Append($"\n {encounterQuest.NPCName} 님과 대화하기");
+                   break;
+                default:
+                    Debug.Log("Undefined Quest Error");
+                    break;
             }
             Debug.Log(sb);
         }
